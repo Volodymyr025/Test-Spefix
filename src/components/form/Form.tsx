@@ -8,6 +8,40 @@ export interface UsersProps {
   data: UsersType[];
 }
 
+const postFormToApi = async (formData: UsersType) => {
+  try {
+    const response = await fetch("http://localhost:3000/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const result = await response.json();
+    console.log(result, "result add");
+  } catch (error) {
+    console.error("Error to send:", error);
+  }
+};
+
+const deleteFromApi = async (id: number, data: UsersType[]) => {
+  try {
+    const response = await fetch("http://localhost:3000/api/users", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, data }),
+    });
+
+    const result = await response.json();
+    console.log(result, "result delete");
+  } catch (error) {
+    console.error("Error to send:", error);
+  }
+};
+
 const Form = ({ data }: UsersProps) => {
   const [users, setUsers] = useState<UsersType[]>(data);
   const [newUser, setNewUser] = useState({ id: 0, name: "", email: "" });
@@ -15,12 +49,14 @@ const Form = ({ data }: UsersProps) => {
   const handleAddUser = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!newUser.name || !newUser.email) return;
+    postFormToApi(newUser);
     setUsers([...users, newUser]);
     setNewUser({ id: 0, name: "", email: "" });
   };
 
   const deleteHandler = (id: number) => {
-    const filterUsers = data.filter((user) => user.id !== id);
+    deleteFromApi(id, users);
+    const filterUsers = users.filter((user) => user.id !== id);
     setUsers(filterUsers);
   };
 

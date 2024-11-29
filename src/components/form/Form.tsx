@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { UserList } from "../list/UserList";
 import { UsersType } from "@/app/page";
@@ -19,7 +20,7 @@ const Form = ({ data }: UsersProps) => {
   };
   return (
     <>
-      <form onSubmit={handleAddUser} className="flex flex-col gap-4">
+      <form onSubmit={handleAddUser} className="flex flex-col gap-4 text-black">
         <input
           type="text"
           placeholder="Ім'я"
@@ -31,18 +32,18 @@ const Form = ({ data }: UsersProps) => {
               id: Math.floor(Math.random() * 100),
             })
           }
-          className="p-2 border rounded-md"
+          className="p-2 border border-gray-500 rounded-md"
         />
         <input
           type="email"
           placeholder="Email"
           value={newUser.email}
           onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-          className="p-2 border rounded-md"
+          className="p-2 border border-gray-500 rounded-md"
         />
         <Button type="submit" title="Додати користувача" />
       </form>
-      <UserList data={users} />
+      <UserList data={users} setUsers={setUsers} />
     </>
   );
 };

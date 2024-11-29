@@ -21,6 +21,7 @@ export const GET = async (request: Request) => {
         email: "Ruslan@gmail.com",
       },
     ];
+
     return NextResponse.json(users);
   } catch (err: any) {
     return NextResponse.json(

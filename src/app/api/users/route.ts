@@ -18,7 +18,11 @@ const users: UsersType[] = [
   },
 ];
 
-type UsersType = { id: number; name: string; email: string };
+interface UsersType {
+  id: number;
+  name: string;
+  email: string;
+}
 
 export const GET = async (request: Request) => {
   try {

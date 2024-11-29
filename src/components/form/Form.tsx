@@ -18,6 +18,12 @@ const Form = ({ data }: UsersProps) => {
     setUsers([...users, newUser]);
     setNewUser({ id: 0, name: "", email: "" });
   };
+
+  const deleteHandler = (id: number) => {
+    const filterUsers = data.filter((user) => user.id !== id);
+    setUsers(filterUsers);
+  };
+
   return (
     <>
       <form onSubmit={handleAddUser} className="flex flex-col gap-4 text-black">
@@ -43,7 +49,7 @@ const Form = ({ data }: UsersProps) => {
         />
         <Button type="submit" title="Додати користувача" />
       </form>
-      <UserList data={users} setUsers={setUsers} />
+      <UserList data={users} onDelete={deleteHandler} />
     </>
   );
 };
